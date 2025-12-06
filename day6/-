@@ -1,0 +1,42 @@
+#[path = "./utils/file.rs"]
+mod file;
+
+use std::{cmp, i64, iter::Product, os::linux::raw};
+
+use clap::Parser;
+
+#[derive(Parser)]
+#[command(version, about, long_about = None)]
+pub struct Cli {
+    #[arg(short, long, value_name = "FILE", required = true)]
+    file: String,
+}
+
+#[derive(Debug, Clone)]
+struct Problem {
+    numbers: Vec<i64>,
+    operator: char,
+}
+
+fn main() {
+    let cli = Cli::parse();
+    let file_path = cli.file;
+    let raw_data = file::load_file(&file_path);
+}
+
+fn get_problems(raw_data: &String) -> Vec<Problem> {
+    let mut problems: Vec<Problem> = Vec::new();
+    let problem_count = raw_data.lines().collect::<Vec<&str>>()[0].len();
+    for i in 0..problem_count {
+        let mut prolem_parts: Vec<&str> = Vec::new();
+        for line in raw_data.lines(){
+            let splits = line.split(" ");
+            prolem_parts.push(splits.clone().nth(i).unwrap());
+        }
+        let (operator, numbers) = prolem_parts.split_last();
+        let problem: Problem = {
+            numbers: numbers.
+        };
+    }
+    return problems;
+}
